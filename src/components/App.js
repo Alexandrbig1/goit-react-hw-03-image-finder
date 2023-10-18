@@ -22,6 +22,18 @@ export class App extends Component {
     e.preventDefault();
     const newSearch = e.target.search.value.trim().toLowerCase();
 
+    // if (newSearch === "") {
+    //   console.log("aaa");
+    //   // Notify.info("Enter your request, please!", paramsForNotify);
+    //   return;
+    // }
+
+    // if (newSearch === this.state.search) {
+    //   console.log("zzz");
+    //   // Notify.info("Enter new request, please!", paramsForNotify);
+    //   return;
+    // }
+
     this.setState({ search: newSearch, page: 1, galleryItems: [] });
   };
 
@@ -33,20 +45,43 @@ export class App extends Component {
     this.setState((prevState) => prevState.page + 1);
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.query !== this.state.query ||
+      prevState.search !== this.state.search ||
       prevState.page !== this.state.page
     ) {
-      // http with setstate
+      const photos = await getApi(
+        this.state.search,
+        this.state.page,
+        perPage
+      ).then((data) => {
+        const photos = data.hits;
+        this.setState({ galleryItems: photos });
+      });
+      // .catch(error)
+      // .finally();
     }
+    // if (
+    //   prevState.query !== this.state.query ||
+    //   prevState.page !== this.state.page
+    // ) {
+    //   // http with setstate
+    //   try {
+    //     const photos = await getApi();
+    //     console.log(photos);
+    //   } catch (error) {
+    //   } finally {
+    //   }
+    // }
   }
 
   render() {
     return (
       <AppDiv>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        {this.state.galleryItems.length > 0 && <ImageGallery />}
+        {this.state.galleryItems.length > 0 && (
+          <ImageGallery photos={this.state.galleryItems} />
+        )}
         {this.state.galleryItems.length > 1 && (
           <Button onClick={this.onLoadMoreClick} />
         )}

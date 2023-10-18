@@ -1,24 +1,22 @@
 import { ImageGalleryItemList } from "./ImageGalleryItem.styled";
-import { Component } from "react";
 import ModalWindow from "../Modal/Modal";
 
-export class ImageGalleryItem extends Component {
+export default function ImageGalleryItem({ photos }) {
   // ModalIsOpen() {
-  //   isOpen: true;
+  //   isOpen: false;
   // }
   // ModalIsClose() {
-  //   onRequestClose: false;
-  // }
 
-  render() {
+  //   onRequestClose = { closeModal };
+  // }
+  console.log(photos);
+
+  return photos.map((item) => {
     return (
-      <ImageGalleryItemList>
-        <img src="" alt="" />
-        <ModalWindow
-          ModalIsOpen={this.ModalIsOpen}
-          ModalIsClose={this.ModalIsClose}
-        />
+      <ImageGalleryItemList key={item.id}>
+        <img src={item.webformatURL} alt="" />
+        <ModalWindow />
       </ImageGalleryItemList>
     );
-  }
+  });
 }
