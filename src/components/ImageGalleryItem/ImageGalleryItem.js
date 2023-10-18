@@ -3,12 +3,12 @@ import { Component } from "react";
 import ModalWindow from "../Modal/Modal";
 
 export class ImageGalleryItem extends Component {
-  ModalIsOpen() {
-    isOpen: true;
-  }
-  ModalIsClose() {
-    onRequestClose: false;
-  }
+  // ModalIsOpen() {
+  //   isOpen: true;
+  // }
+  // ModalIsClose() {
+  //   onRequestClose: false;
+  // }
 
   render() {
     return (
