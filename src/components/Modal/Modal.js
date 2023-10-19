@@ -1,25 +1,29 @@
-import { ModalDivOverlay, ModalDivModal } from "./Modal.styled";
+import { ModalDivOverlay, ModalDivModal, ModalImage } from "./Modal.styled";
 import Modal from "react-modal";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+// const customStyles = {
+//   content: {
+//     top: "50%",
+//     left: "50%",
+//     right: "auto",
+//     bottom: "auto",
+//     marginRight: "-50%",
+//     transform: "translate(-50%, -50%)",
+//   },
+// };
 
 Modal.setAppElement("#root");
 
-export default function ModalWindow({ ModalIsOpen, ModalIsClose }) {
+export default function ModalWindow({ modalOpen, modalClose, photo }) {
   return (
-    <Modal style={customStyles} contentLabel="Example Modal">
+    <Modal
+      onRequestClose={modalClose}
+      isOpen={modalOpen}
+      contentLabel="Example Modal"
+    >
       <ModalDivOverlay>
         <ModalDivModal>
-          <img src="" alt="" />
+          <ModalImage src={photo} alt="" />
         </ModalDivModal>
       </ModalDivOverlay>
     </Modal>
